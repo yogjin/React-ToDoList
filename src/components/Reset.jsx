@@ -4,7 +4,12 @@ class Reset extends Component {
   render() {
     return (
       <>
-        <button className="habits-reset">Reset All</button>
+        <button
+          className="habits-reset" //
+          onClick={this.props.onReset}
+        >
+          Reset All
+        </button>
       </>
     );
   }
