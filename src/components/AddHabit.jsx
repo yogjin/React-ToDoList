@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class AddHabit extends Component {
   inputRef = React.createRef();
 
-  handleAdd = () => {
+  handleAdd = (e) => {
+    e.preventDefault();
     const name = this.inputRef.current.value;
     name && this.props.onAdd(name);
     this.inputRef.current.value = '';
@@ -11,10 +12,10 @@ class AddHabit extends Component {
   render() {
     return (
       <>
-        <input ref={this.inputRef} type="text" className="add-input" />
-        <button className="add-button" onClick={this.handleAdd}>
-          Add
-        </button>
+        <form className="add-form" onSubmit={this.handleAdd}>
+          <input ref={this.inputRef} type="text" className="add-input" />
+          <button className="add-button">Add</button>
+        </form>
       </>
     );
   }
