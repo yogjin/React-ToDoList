@@ -1,5 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
+import NavBar from './components/NavBar';
 import AddHabit from './components/AddHabit';
 import Habits from './components/Habits';
 import Reset from './components/Reset';
@@ -10,6 +11,15 @@ class App extends Component {
       { id: 2, name: '코딩', count: 1 },
       { id: 3, name: '운동', count: 0 },
     ],
+  };
+
+  // NavBar 로직
+  getHabitsCountAll = () => {
+    let count = 0;
+    this.state.habits.forEach((habit) => {
+      count += habit.count;
+    });
+    return count;
   };
   // Add 로직
   handleAdd = (habit) => {
@@ -50,6 +60,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <NavBar count={this.getHabitsCountAll()} />
         <AddHabit onAdd={this.handleAdd} />
         <Habits
           habits={this.state.habits}
