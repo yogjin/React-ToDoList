@@ -9,11 +9,40 @@ class Habits extends Component {
       { id: 3, name: '운동', count: 0 },
     ],
   };
+  // Habit 로직
+  handleIncrement = (habit) => {
+    const habits = this.state.habits.map((item) => {
+      if (habit.id === item.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
+    this.setState({ habits });
+  };
+  handleDecrement = (habit) => {
+    const habits = this.state.habits.map((item) => {
+      if (habit.id === item.id && habit.count - 1 >= 0) {
+        return { ...habit, count: habit.count - 1 };
+      }
+      return item;
+    });
+    this.setState({ habits });
+  };
+  handleDelete = (habit) => {
+    const habits = this.state.habits.filter((item) => habit.id !== item.id);
+    this.setState({ habits });
+  };
   render() {
     return (
       <ul>
         {this.state.habits.map((habit) => (
-          <Habit key={habit.id} habit={habit} />
+          <Habit
+            key={habit.id}
+            habit={habit}
+            onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
+            onDelete={this.handleDelete}
+          />
         ))}
       </ul>
     );
