@@ -4,13 +4,9 @@ class AddHabit extends Component {
   inputRef = React.createRef();
 
   handleAdd = () => {
-    const id = new Date().toISOString();
     const name = this.inputRef.current.value;
-    const count = 0;
-    const habit = { id, name, count };
-    this.props.onAdd(habit);
-
-    document.querySelector('.add-input').value = '';
+    name && this.props.onAdd(name);
+    this.inputRef.current.value = '';
   };
   render() {
     return (

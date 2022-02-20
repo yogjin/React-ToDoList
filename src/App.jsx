@@ -22,8 +22,11 @@ class App extends Component {
     return count;
   };
   // Add 로직
-  handleAdd = (habit) => {
-    const habits = [...this.state.habits, habit];
+  handleAdd = (name) => {
+    const habits = [
+      ...this.state.habits,
+      { id: new Date().toISOString(), name, count: 0 },
+    ];
     this.setState({ habits });
   };
   // Habit 로직
