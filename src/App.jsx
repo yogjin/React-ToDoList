@@ -1,5 +1,6 @@
 import './App.css';
 import React, { Component } from 'react';
+import AddHabit from './components/AddHabit';
 import Habits from './components/Habits';
 import Reset from './components/Reset';
 class App extends Component {
@@ -9,6 +10,11 @@ class App extends Component {
       { id: 2, name: '코딩', count: 1 },
       { id: 3, name: '운동', count: 0 },
     ],
+  };
+  // Add 로직
+  handleAdd = (habit) => {
+    const habits = [...this.state.habits, habit];
+    this.setState({ habits });
   };
   // Habit 로직
   handleIncrement = (habit) => {
@@ -44,16 +50,14 @@ class App extends Component {
   render() {
     return (
       <>
+        <AddHabit onAdd={this.handleAdd} />
         <Habits
           habits={this.state.habits}
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
           onDelete={this.handleDelete}
         />
-        <Reset
-          habits={this.state.habits} //
-          onReset={this.handleReset}
-        />
+        <Reset onReset={this.handleReset} />
       </>
     );
   }
