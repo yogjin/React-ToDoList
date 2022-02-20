@@ -8,7 +8,7 @@ class App extends Component {
   state = {
     habits: [
       { id: 1, name: '책읽기', count: 0 },
-      { id: 2, name: '코딩', count: 1 },
+      { id: 2, name: '코딩', count: 0 },
       { id: 3, name: '운동', count: 0 },
     ],
   };
@@ -61,14 +61,16 @@ class App extends Component {
     return (
       <>
         <NavBar count={this.getHabitsCountAll()} />
-        <AddHabit onAdd={this.handleAdd} />
-        <Habits
-          habits={this.state.habits}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-          onDelete={this.handleDelete}
-        />
-        <Reset onReset={this.handleReset} />
+        <div className="habits">
+          <AddHabit onAdd={this.handleAdd} />
+          <Habits
+            habits={this.state.habits}
+            onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
+            onDelete={this.handleDelete}
+          />
+          <Reset onReset={this.handleReset} />
+        </div>
       </>
     );
   }
