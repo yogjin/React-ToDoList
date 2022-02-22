@@ -1,24 +1,22 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-class AddHabit extends PureComponent {
-  inputRef = React.createRef();
+const AddHabit = (props) => {
+  const inputRef = React.createRef();
 
-  handleAdd = (e) => {
+  const handleAdd = (e) => {
     e.preventDefault();
-    const name = this.inputRef.current.value;
-    name && this.props.onAdd(name);
-    this.inputRef.current.value = '';
+    const name = inputRef.current.value;
+    name && props.onAdd(name);
+    inputRef.current.value = '';
   };
-  render() {
-    return (
-      <>
-        <form className="add-form" onSubmit={this.handleAdd}>
-          <input ref={this.inputRef} type="text" className="add-input" />
-          <button className="add-button">Add</button>
-        </form>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <form className="add-form" onSubmit={handleAdd}>
+        <input ref={inputRef} type="text" className="add-input" />
+        <button className="add-button">Add</button>
+      </form>
+    </>
+  );
+};
 
 export default AddHabit;
