@@ -56,7 +56,10 @@ class App extends Component {
   // Reset 로직
   handleReset = () => {
     const habits = this.state.habits.map((habit) => {
-      return { ...habit, count: 0 };
+      if (habit.count !== 0) {
+        return { ...habit, count: 0 };
+      }
+      return habit;
     });
     this.setState({ habits });
   };

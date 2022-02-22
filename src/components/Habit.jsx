@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 // state 사용 X
 // 외부에서 전달받은 props.habit를 이용해 데이터를 보여주기만 하는 컴포넌트
-class Habit extends Component {
+class Habit extends PureComponent {
   // Habit 로직
   handleIncrement = () => {
     this.props.onIncrement(this.props.habit);
