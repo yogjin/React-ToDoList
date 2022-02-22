@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const AddHabit = (props) => {
+const AddHabit = memo((props) => {
   const inputRef = React.createRef();
 
   const handleAdd = (e) => {
@@ -17,6 +17,6 @@ const AddHabit = (props) => {
       </form>
     </>
   );
-};
+});
 
 export default AddHabit;
