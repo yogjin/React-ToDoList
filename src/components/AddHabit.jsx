@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
-const AddHabit = memo((props) => {
+const AddHabit = memo(({ onAdd }) => {
   const inputRef = React.createRef();
 
   const handleAdd = (e) => {
     e.preventDefault();
     const name = inputRef.current.value;
-    name && props.onAdd(name);
+    name && onAdd(name);
     inputRef.current.value = '';
   };
   return (

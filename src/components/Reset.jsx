@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Reset = (props) => {
+const Reset = ({ onReset }) => {
   return (
     <>
       <button
         className="habits-reset" //
-        onClick={props.onReset}
+        onClick={onReset}
       >
         Reset All
       </button>

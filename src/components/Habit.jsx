@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
-const Habit = (props) => {
+const Habit = memo(({ habit, onIncrement, onDecrement, onDelete }) => {
   // LifeCycle function
   useEffect(() => {
     console.log(`mounted & updated!`);
-  }, [props.habit]);
+  }, [habit]);
 
   // Habit 로직
   const handleIncrement = () => {
-    props.onIncrement(props.habit);
+    onIncrement(habit);
   };
   const handleDecrement = () => {
-    props.onDecrement(props.habit);
+    onDecrement(habit);
   };
   const handleDelete = () => {
-    props.onDelete(props.habit);
+    onDelete(habit);
   };
 
-  const { name, count } = props.habit;
+  const { name, count } = habit;
 
   return (
     <li className="habit">
@@ -34,6 +34,6 @@ const Habit = (props) => {
       </button>
     </li>
   );
-};
+});
 
 export default Habit;

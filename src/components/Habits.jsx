@@ -1,16 +1,16 @@
 import React from 'react';
 import Habit from './Habit';
 
-const Habits = (props) => {
+const Habits = ({ habits, onIncrement, onDecrement, onDelete }) => {
   return (
     <ul>
-      {props.habits.map((habit) => (
+      {habits.map((habit) => (
         <Habit
           key={habit.id}
           habit={habit}
-          onIncrement={props.onIncrement}
-          onDecrement={props.onDecrement}
-          onDelete={props.onDelete}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+          onDelete={onDelete}
         />
       ))}
     </ul>
