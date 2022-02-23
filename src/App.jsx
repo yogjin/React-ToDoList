@@ -1,85 +1,82 @@
 import './App.css';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import AddHabit from './components/AddHabit';
 import Habits from './components/Habits';
 import Reset from './components/Reset';
-class App extends Component {
-  state = {
-    habits: [
-      { id: 1, name: '책읽기', count: 0 },
-      { id: 2, name: '코딩', count: 0 },
-      { id: 3, name: '운동', count: 0 },
-    ],
-  };
+
+const App = (props) => {
+  const [habits, setHabits] = useState([
+    { id: 1, name: '책읽기', count: 0 },
+    { id: 2, name: '코딩', count: 0 },
+    { id: 3, name: '운동', count: 0 },
+  ]);
 
   // NavBar 로직
-  getHabitsCountAll = () => {
+  const getHabitsCountAll = () => {
     let count = 0;
-    this.state.habits.forEach((habit) => {
+    habits.forEach((habit) => {
       count += habit.count;
     });
     return count;
   };
   // Add 로직
-  handleAdd = (name) => {
-    const habits = [
-      ...this.state.habits,
+  const handleAdd = (name) => {
+    const updatedHabits = [
+      ...habits,
       { id: new Date().toISOString(), name, count: 0 },
     ];
-    this.setState({ habits });
+    setHabits(updatedHabits);
   };
   // Habit 로직
-  handleIncrement = (habit) => {
-    const habits = this.state.habits.map((item) => {
+  const handleIncrement = (habit) => {
+    const updatedHabits = habits.map((item) => {
       if (habit.id === item.id) {
         return { ...habit, count: habit.count + 1 };
       }
       return item;
     });
-    this.setState({ habits });
+    setHabits(updatedHabits);
   };
-  handleDecrement = (habit) => {
-    const habits = this.state.habits.map((item) => {
+  const handleDecrement = (habit) => {
+    const updatedHabits = habits.map((item) => {
       if (habit.id === item.id && habit.count - 1 >= 0) {
         return { ...habit, count: habit.count - 1 };
       }
       return item;
     });
-    this.setState({ habits });
+    setHabits(updatedHabits);
   };
-  handleDelete = (habit) => {
-    const habits = this.state.habits.filter((item) => habit.id !== item.id);
-    this.setState({ habits });
+  const handleDelete = (habit) => {
+    const updatedHabits = habits.filter((item) => habit.id !== item.id);
+    setHabits(updatedHabits);
   };
 
   // Reset 로직
-  handleReset = () => {
-    const habits = this.state.habits.map((habit) => {
+  const handleReset = () => {
+    const updatedHabits = habits.map((habit) => {
       if (habit.count !== 0) {
         return { ...habit, count: 0 };
       }
       return habit;
     });
-    this.setState({ habits });
+    setHabits(updatedHabits);
   };
-  render() {
-    return (
-      <>
-        <NavBar count={this.getHabitsCountAll()} />
-        <div className="habits">
-          <AddHabit onAdd={this.handleAdd} />
-          <Habits
-            habits={this.state.habits}
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement}
-            onDelete={this.handleDelete}
-          />
-          <Reset onReset={this.handleReset} />
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <NavBar count={getHabitsCountAll()} />
+      <div className="habits">
+        <AddHabit onAdd={handleAdd} />
+        <Habits
+          habits={habits}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          onDelete={handleDelete}
+        />
+        <Reset onReset={handleReset} />
+      </div>
+    </>
+  );
+};
 
 export default App;
