@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import NavBar from './components/NavBar';
 import AddHabit from './components/AddHabit';
 import Habits from './components/Habits';
@@ -20,48 +20,53 @@ const App = (props) => {
     });
     return count;
   };
+
   // Add 로직
-  const handleAdd = (name) => {
-    const updatedHabits = [
+  const handleAdd = useCallback((name) => {
+    setHabits((habits) => [
       ...habits,
       { id: new Date().toISOString(), name, count: 0 },
-    ];
-    setHabits(updatedHabits);
-  };
+    ]);
+  }, []);
+
   // Habit 로직
   const handleIncrement = (habit) => {
-    const updatedHabits = habits.map((item) => {
-      if (habit.id === item.id) {
-        return { ...habit, count: habit.count + 1 };
-      }
-      return item;
+    setHabits((habits) => {
+      console.log(habits);
+      return habits.map((item) => {
+        if (habit.id === item.id) {
+          return { ...habit, count: habit.count + 1 };
+        }
+        return item;
+      });
     });
-    setHabits(updatedHabits);
-  };
-  const handleDecrement = (habit) => {
-    const updatedHabits = habits.map((item) => {
-      if (habit.id === item.id && habit.count - 1 >= 0) {
-        return { ...habit, count: habit.count - 1 };
-      }
-      return item;
-    });
-    setHabits(updatedHabits);
-  };
-  const handleDelete = (habit) => {
-    const updatedHabits = habits.filter((item) => habit.id !== item.id);
-    setHabits(updatedHabits);
   };
 
+  const handleDecrement = useCallback((habit) => {
+    setHabits((habits) =>
+      habits.map((item) => {
+        if (habit.id === item.id && habit.count - 1 >= 0) {
+          return { ...habit, count: habit.count - 1 };
+        }
+        return item;
+      })
+    );
+  }, []);
+  const handleDelete = useCallback((habit) => {
+    setHabits((habits) => habits.filter((item) => habit.id !== item.id));
+  }, []);
+
   // Reset 로직
-  const handleReset = () => {
-    const updatedHabits = habits.map((habit) => {
-      if (habit.count !== 0) {
-        return { ...habit, count: 0 };
-      }
-      return habit;
-    });
-    setHabits(updatedHabits);
-  };
+  const handleReset = useCallback(() => {
+    setHabits((habits) =>
+      habits.map((habit) => {
+        if (habit.count !== 0) {
+          return { ...habit, count: 0 };
+        }
+        return habit;
+      })
+    );
+  }, []);
   return (
     <>
       <NavBar count={getHabitsCountAll()} />
